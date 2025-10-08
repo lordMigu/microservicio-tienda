@@ -1,0 +1,582 @@
+{
+	"info": {
+		"_postman_id": "ab453a06-2f88-45b0-ad73-765f38562c5c",
+		"name": "Proyecto-tienda",
+		"description": "## 🧾 Documentación de Endpoints – `VentaController`\n\n**Base URL:** `http://localhost:8080/ventas`\n\n### 📌 1. Crear una venta\n\n- **Método:** `POST`\n    \n- **Endpoint:** `/crear`\n    \n- **Body (JSON):**\n    \n\n``` json\n{\n  \"fecha_venta\": \"2025-10-07\",\n  \"total\": 150.0,\n  \"listaProductos\": [...],\n  \"unCliente\": {...}\n}\n\n ```\n\n- **Respuesta:**  \n    `Venta creado, Id: [codigo_venta]`\n    \n\n---\n\n### 📌 2. Obtener todas las ventas\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/`\n    \n- **Respuesta:**\n    \n    Lista de objetos `Venta`\n    \n\n---\n\n### 📌 3. Obtener una venta por ID\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/{Id}`\n    \n- **Parámetro:**  \n    `Id` → `Long` (ID de la venta)\n    \n- **Respuesta:**\n    \n    Objeto `Venta`\n    \n\n---\n\n### 📌 4. Editar una venta por ID\n\n- **Método:** `PUT`\n    \n- **Endpoint:** `/editar/{Id}`\n    \n- **Parámetro:**  \n    `Id` → `Long`\n    \n- **Body (JSON):**\n    \n    Mismo formato que en creación\n    \n- **Respuesta:**\n    \n    Venta actualizada\n    \n\n---\n\n### 📌 5. Eliminar una venta por ID\n\n- **Método:** `DELETE`\n    \n- **Endpoint:** `/eliminar/{Id}`\n    \n- **Parámetro:**  \n    `Id` → `Long`\n    \n- **Respuesta:**  \n    `Venta eliminada`\n    \n\n---\n\n### 📌 6. Obtener productos de una venta\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/productos/{codigo_venta}`\n    \n- **Parámetro:**  \n    `codigo_venta` → `Long`\n    \n- **Respuesta:**\n    \n    Lista de objetos `Producto` asociados a la venta\n    \n\n---\n\n### 📌 7. Obtener monto total y cantidad de ventas de un día\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/montos/{fecha_venta}`\n    \n- **Parámetro:**  \n    `fecha_venta` → `LocalDate` (formato `YYYY-MM-DD`)\n    \n- **Respuesta:**  \n    `La sumatoriaMonto: [total], y el numero de ventas: [cantidad]`\n    \n\n---\n\n### 📌 8. Obtener la venta con mayor monto\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/mayor_venta`\n    \n- **Respuesta:**\n    \n    Objeto `VentaMayorDTO` con:\n    \n    - `codigo_venta`\n        \n    - `total`\n        \n    - `cantidad_productos`\n        \n    - `nombre_cliente`\n        \n    - `apellido_cliente`\n        \n\n## 🧾 Documentación de Endpoints – Proyecto Tienda API\n\n**Base URL:** `http://localhost:8080`\n\n---\n\n### 🧍 CLIENTES\n\n#### 📌 Crear cliente\n\n- **Método:** `POST`\n    \n- **Endpoint:** `/clientes/crear`\n    \n- **Body (JSON):**\n    \n\n``` json\n{\n  \"id_cliente\": 1,\n  \"nombre\": \"María\",\n  \"apellido\": \"Cabrera\",\n  \"dni\": \"0923456789\"\n}\n\n ```\n\n#### 📌 Obtener todos los clientes\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/clientes`\n    \n\n#### 📌 Obtener cliente por ID\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/clientes/{id_cliente}`\n    \n\n#### 📌 Editar cliente\n\n- **Método:** `PUT`\n    \n- **Endpoint:** `/clientes/editar/{id_cliente}`\n    \n- **Body (JSON):**\n    \n    Mismo formato que en creación\n    \n\n#### 📌 Eliminar cliente\n\n- **Método:** `DELETE`\n    \n- **Endpoint:** `/clientes/eliminar/{id_cliente}`\n    \n\n---\n\n### 📦 PRODUCTOS\n\n#### 📌 Crear producto\n\n- **Método:** `POST`\n    \n- **Endpoint:** `/productos/crear`\n    \n- **Body (JSON):**\n    \n\n``` json\n{\n  \"nombre\": \"Taza\",\n  \"marca\": \"CerámicaPlus\",\n  \"costo\": 3.5,\n  \"cantidad_disponible\": 20\n}\n\n ```\n\n#### 📌 Obtener todos los productos\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/productos`\n    \n\n#### 📌 Obtener producto por código\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/productos/{codigo_producto}`\n    \n\n#### 📌 Editar producto\n\n- **Método:** `PUT`\n    \n- **Endpoint:** `/productos/editar/{codigo_producto}`\n    \n\n#### 📌 Eliminar producto\n\n- **Método:** `DELETE`\n    \n- **Endpoint:** `/productos/eliminar/{codigo_producto}`\n    \n\n#### 📌 Productos con bajo stock\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/productos/falta_stock`\n    \n\n---\n\n### 🧾 VENTAS\n\n#### 📌 Crear venta\n\n- **Método:** `POST`\n    \n- **Endpoint:** `/ventas/crear`\n    \n- **Body (JSON):**\n    \n\n``` json\n{\n  \"fecha_venta\": \"2025-10-07\",\n  \"total\": 25.0,\n  \"listaProductos\": [\n    {\n      \"codigo_producto\": 101\n    }\n  ],\n  \"unCliente\": {\n    \"id_cliente\": 1\n  }\n}\n\n ```\n\n#### 📌 Obtener todas las ventas\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/ventas`\n    \n\n#### 📌 Obtener venta por ID\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/ventas/{Id}`\n    \n\n#### 📌 Editar venta (asociar cliente y productos)\n\n- **Método:** `PUT`\n    \n- **Endpoint:** `/ventas/editar/{Id}`\n    \n- **Body (JSON):**\n    \n    Igual que en creación, puedes modificar `listaProductos` y `unCliente` para actualizar la venta.\n    \n\n#### 📌 Eliminar venta\n\n- **Método:** `DELETE`\n    \n- **Endpoint:** `/ventas/eliminar/{Id}`\n    \n\n#### 📌 Obtener productos de una venta\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/ventas/productos/{codigo_venta}`\n    \n\n#### 📌 Obtener monto total y cantidad de ventas de un día\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/ventas/montos/{fecha_venta}`\n    \n\n#### 📌 Obtener venta con mayor monto\n\n- **Método:** `GET`\n    \n- **Endpoint:** `/ventas/mayor_venta`",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41708897"
+	},
+	"item": [
+		{
+			"name": "crearCliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Carlos\",\r\n  \"apellido\": \"Cabrera\",\r\n  \"dni\": \"0912345678\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/clientes/crear",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"clientes",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verClientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/clientes",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/clientes",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 07 Oct 2025 03:50:14 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id_cliente\": 1,\n        \"nombre\": \"Lucía\",\n        \"apellido\": \"Paredes\",\n        \"dni\": \"0923456789\"\n    },\n    {\n        \"id_cliente\": 2,\n        \"nombre\": \"Carlos\",\n        \"apellido\": \"Mendoza\",\n        \"dni\": \"0912345678\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "verClienteId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/clientes/2",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"clientes",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateCliente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Carlos\",\r\n    \"apellido\": \"Cabrera\",\r\n    \"dni\": \"0912345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/clientes/editar/2",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"clientes",
+						"editar",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteCliente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/clientes/eliminar/2",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"clientes",
+						"eliminar",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crearProducto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Mouse Logitech X68\",\r\n  \"marca\": \"Logitech\",\r\n  \"costo\": 18.5,\r\n  \"cantidad_disponible\": 50.0\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/productos/crear",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"productos",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verProductos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/productos",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"productos"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "verProductos",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/productos",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"productos"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 07 Oct 2025 21:48:01 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"codigo_producto\": 1,\n        \"nombre\": \"Mouse Logitech M185\",\n        \"marca\": \"Logitech\",\n        \"costo\": 16.99,\n        \"cantidad_disponible\": 75\n    },\n    {\n        \"codigo_producto\": 2,\n        \"nombre\": \"Laptop Lenovo ThinkPad\",\n        \"marca\": \"Lenovo\",\n        \"costo\": 950,\n        \"cantidad_disponible\": 10\n    },\n    {\n        \"codigo_producto\": 3,\n        \"nombre\": \"Mouse Logitech X68\",\n        \"marca\": \"Logitech\",\n        \"costo\": 18.5,\n        \"cantidad_disponible\": 50\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "verProductoId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/productos/2",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"productos",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateProductoId",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Mouse Logitech M185\",\r\n    \"marca\": \"Logitech\",\r\n    \"costo\": 16.99,\r\n    \"cantidad_disponible\": 75.0,\r\n    \"p_venta\": 203\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/productos/editar/1",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"productos",
+						"editar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteProductoId",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Mouse Logitech X68\",\r\n    \"marca\": \"Logitech\",\r\n    \"costo\": 18.5,\r\n    \"cantidad_disponible\": 50.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/productos/eliminar/3",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"productos",
+						"eliminar",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crearVenta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fecha_venta\": \"2025-10-07\",\r\n    \"total\": 950.0,\r\n    \"listaProductos\": [\r\n        {\r\n            \"codigo_producto\": 1\r\n        }\r\n    ],\r\n    \"unCliente\": {\r\n        \"id_cliente\": 1\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/ventas/crear",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"ventas",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getVenta",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fecha_venta\": \"2025-10-06\",\r\n    \"total\": 968.5,\r\n    \"unCliente\": {\r\n        \"id_cliente\": 2\r\n    },\r\n    \"listaProductos\": [\r\n        {\r\n            \"codigo_producto\": 2\r\n        },\r\n        {\r\n            \"codigo_producto\": 1\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/ventas",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"ventas"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "getVenta",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha_venta\": \"2025-10-06\",\r\n    \"total\": 968.5,\r\n    \"unCliente\": {\r\n        \"id_cliente\": 2\r\n    },\r\n    \"listaProductos\": [\r\n        {\r\n            \"codigo_producto\": 2\r\n        },\r\n        {\r\n            \"codigo_producto\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/ventas",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"ventas"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 07 Oct 2025 23:58:35 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"codigo_venta\": 203,\n        \"fecha_venta\": \"2025-10-07\",\n        \"total\": 950,\n        \"listaProductos\": [],\n        \"unCliente\": null\n    },\n    {\n        \"codigo_venta\": 252,\n        \"fecha_venta\": \"2025-10-07\",\n        \"total\": 950,\n        \"listaProductos\": [\n            {\n                \"codigo_producto\": 1,\n                \"nombre\": \"Mouse Logitech M185\",\n                \"marca\": \"Logitech\",\n                \"costo\": 16.99,\n                \"cantidad_disponible\": 75\n            },\n            {\n                \"codigo_producto\": 2,\n                \"nombre\": \"Laptop Lenovo ThinkPad\",\n                \"marca\": \"Lenovo\",\n                \"costo\": 950,\n                \"cantidad_disponible\": 4\n            }\n        ],\n        \"unCliente\": {\n            \"id_cliente\": 2,\n            \"nombre\": \"Lucía\",\n            \"apellido\": \"Paredes\",\n            \"dni\": \"0923456789\"\n        }\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "getVentaId",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fecha_venta\": \"2025-10-06\",\r\n    \"total\": 968.5,\r\n    \"unCliente\": {\r\n        \"id_cliente\": 2\r\n    },\r\n    \"listaProductos\": [\r\n        {\r\n            \"codigo_producto\": 2\r\n        },\r\n        {\r\n            \"codigo_producto\": 1\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/ventas/252",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"ventas",
+						"252"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "getVenta Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha_venta\": \"2025-10-06\",\r\n    \"total\": 968.5,\r\n    \"unCliente\": {\r\n        \"id_cliente\": 2\r\n    },\r\n    \"listaProductos\": [\r\n        {\r\n            \"codigo_producto\": 2\r\n        },\r\n        {\r\n            \"codigo_producto\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/ventas/252",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"ventas",
+								"252"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 07 Oct 2025 22:16:02 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"codigo_venta\": 252,\n    \"fecha_venta\": \"2025-10-07\",\n    \"total\": 950,\n    \"listaProductos\": [\n        {\n            \"codigo_producto\": 1,\n            \"nombre\": \"Mouse Logitech M185\",\n            \"marca\": \"Logitech\",\n            \"costo\": 16.99,\n            \"cantidad_disponible\": 75\n        },\n        {\n            \"codigo_producto\": 2,\n            \"nombre\": \"Laptop Lenovo ThinkPad\",\n            \"marca\": \"Lenovo\",\n            \"costo\": 950,\n            \"cantidad_disponible\": 10\n        }\n    ],\n    \"unCliente\": {\n        \"id_cliente\": 2,\n        \"nombre\": \"Lucía\",\n        \"apellido\": \"Paredes\",\n        \"dni\": \"0923456789\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "editVenta",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fecha_venta\": \"2025-10-07\",\r\n    \"total\": 520.0,\r\n    \"unCliente\": {\r\n        \"id_cliente\": 1\r\n    },\r\n    \"listaProductos\": [\r\n        {\r\n            \"codigo_producto\": 3\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/ventas/editar/203",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"ventas",
+						"editar",
+						"203"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteVenta",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fecha_venta\": \"2025-10-06\",\r\n    \"total\": 968.5,\r\n    \"unCliente\": {\r\n        \"id_cliente\": 2\r\n    },\r\n    \"listaProductos\": [\r\n        {\r\n            \"codigo_producto\": 2\r\n        },\r\n        {\r\n            \"codigo_producto\": 1\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/ventas/eliminar/202",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"ventas",
+						"eliminar",
+						"202"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
