@@ -1,6 +1,5 @@
 package com.cabreramiguel.proyecto_tienda.dto;
 
-import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 

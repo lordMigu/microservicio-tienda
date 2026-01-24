@@ -21,12 +21,6 @@ public class VentaService implements IVentaService{
     @Autowired
     private IProductoRepository productoRepo;
     
-//    @Override
-//    public Venta createVenta(Venta venta) {
-//        ventaRepo.save(venta);
-//        return venta;
-//    }
-
     @Override
     public Venta createVenta(Venta venta) {
         // Buscar cliente
@@ -55,9 +49,6 @@ public class VentaService implements IVentaService{
 
         return ventaGuardada;
     }
-
-
-
 
     @Override
     public List<Venta> getVentas() {
@@ -102,7 +93,6 @@ public class VentaService implements IVentaService{
             throw new RuntimeException("Venta con ID " + Id + " no encontrado.");
         }
     }
-
 
     @Override
     public void deleteVentaId(Long Id) {
